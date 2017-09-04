@@ -45,17 +45,28 @@ public class Estacionamiento
         return cadDetalles;
     }
     
-        public void saleCoche(Vehiculo unVehiculo,int hora2Ini,int min2Ini)
+    public boolean saleCoche(Vehiculo unVehiculo,int hora2Ini,int min2Ini)
+    {
+        int existe = this.buscarCoche(unVehiculo.dimeVehiculo());
+        if(existe==-1)
+        {
+            return false;
+        }
+        horaSalida=hora2Ini;
+        minSalida=min2Ini;
+        estacionamiento[existe] = null;
+        return true;
+    }
+    
+    private int buscarCoche(String placasCoche)
     {
         for(int i=0;i<estacionamiento.length;i++)
         {
-            if(estacionamiento[i]!=null)
+            if(estacionamiento[i] != null && estacionamiento[i].dimeVehiculo() == placasCoche)
             {
-                    horaSalida=hora2Ini;
-                    minSalida=min2Ini;
-                    estacionamiento[i]=null;
+                return i;
             }
-            break;
         }
+         return -1;
     }
 }
